@@ -46,6 +46,7 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.mainPannel = new System.Windows.Forms.Panel();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.sidebar.SuspendLayout();
@@ -278,6 +279,12 @@
             this.notifyIcon1.Visible = true;
             this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
             // 
+            // timer2
+            // 
+            this.timer2.Enabled = true;
+            this.timer2.Interval = 4000;
+            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -320,6 +327,7 @@
         private System.Windows.Forms.Button btnNotepad;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
+        private System.Windows.Forms.Timer timer2;
     }
 }
 

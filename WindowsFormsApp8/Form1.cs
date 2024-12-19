@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,6 +13,7 @@ namespace WindowsFormsApp8
 {
     public partial class Form1 : Form
     {
+        private string connectionString = "Server=127.0.0.1;Port=3306;Database=notifications;Uid=root;Pwd=;";
         public Form1()
         {
             InitializeComponent();
@@ -133,6 +135,44 @@ namespace WindowsFormsApp8
             if (this.WindowState == FormWindowState.Minimized)
             {
                 this.ShowInTaskbar = false;
+            }
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            int x = 1;
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    x:
+                    string query = "SELECT * FROM notifications_data WHERE OS_Push = 0 ";
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int notificationId = reader.GetInt32("notification_ID");
+                            string notificationType = reader.GetString("notification_Type");
+                            string notificationDescription = reader.GetString("notification_Description");
+                            notifyIcon1.BalloonTipText = notificationDescription;
+                            notifyIcon1.BalloonTipTitle = notificationType;
+                            notifyIcon1.ShowBalloonTip(2000);
+                            string z = "UPDATE notifications_data SET OS_Push = 1 WHERE notification_ID=" + Convert.ToString(notificationId) + ";";
+                            reader.Close();
+                            cmd.CommandText = z;
+                            cmd.ExecuteNonQuery();
+                            goto x;
+                            //reader = cmd.ExecuteReader();
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error loading tasks from database: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
     }

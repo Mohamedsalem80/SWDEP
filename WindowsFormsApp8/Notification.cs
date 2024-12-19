@@ -117,7 +117,7 @@ namespace WindowsFormsApp8
                             string notificationType = reader.GetString("notification_Type");
                             string notificationDescription = reader.GetString("notification_Description");
 
-                            CreateNotificationUI(notificationDescription, notificationType, notificationId);
+                            CreateNotificationUI(notificationType, notificationDescription, notificationId);
                         }
                     }
                 }
