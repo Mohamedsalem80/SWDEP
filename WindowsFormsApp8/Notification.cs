@@ -27,7 +27,26 @@ namespace WindowsFormsApp8
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
+            if (MessageBox.Show("Are you sure you want to delete this task and all its subtasks?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    try
+                    {
+                        connection.Open();
+                        string deleteAllNotifications = "DELETE FROM notifications_data";
+
+                        MySqlCommand cmd = new MySqlCommand(deleteAllNotifications, connection);
+                        cmd.ExecuteNonQuery();
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error deleting task: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                LoadNotifications();
+            }
         }
         private void CreateNotificationUI(string notificationType,string descripton, int notificationId)
         {
@@ -36,11 +55,16 @@ namespace WindowsFormsApp8
                 BorderStyle = BorderStyle.FixedSingle,
                 FlowDirection = FlowDirection.TopDown,
                 Padding = new Padding(10),
-                Width = 427
+                Width = 427,
+                Height = 150
             };
-            var notificationTitle = new Label { Text = notificationType, AutoSize = true };
-            var notificationDiscription = new Label { Text = descripton, AutoSize = true };
-            var deleteTaskButton = new Button { Text = "Delete notification", AutoSize = true };
+            var notificationTitle = new Label { Text = notificationType, Width = 400, Height = 30,BackColor = Color.Gray,TextAlign= ContentAlignment.MiddleCenter};
+            var notificationDiscription = new Label { Text = descripton, Width = 400, Height = 60 };
+            var deleteTaskButton = new Button { Text = "Delete notification", Width = 400 };
+
+            notificationTitle.Font = new Font(notificationTitle.Font.FontFamily, 20, FontStyle.Regular);
+            notificationDiscription.Font = new Font(notificationDiscription.Font.FontFamily, 15, FontStyle.Regular);
+            deleteTaskButton.Font = new Font(deleteTaskButton.Font, FontStyle.Regular);
 
             NotificationInfo notificationInfo = new NotificationInfo { NotificationId = notificationId};
             notficationPanel.Tag = notificationInfo;
