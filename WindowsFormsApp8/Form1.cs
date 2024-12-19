@@ -17,6 +17,7 @@ namespace WindowsFormsApp8
             InitializeComponent();
             loadform(new TodoForm());
             p1.Visible = true;
+            notifyIcon1.Icon = SystemIcons.Error;
         }
         bool sidebarExpand = true;
 
@@ -120,6 +121,19 @@ namespace WindowsFormsApp8
         {
             Log_GitHub newForm = new Log_GitHub();
             newForm.Show();
+        }
+
+        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            this.WindowState = FormWindowState.Normal;
+            this.ShowInTaskbar = true;
+        }
+        private void Form1_SizeChanged(object sender, EventArgs e)
+        {
+            if (this.WindowState == FormWindowState.Minimized)
+            {
+                this.ShowInTaskbar = false;
+            }
         }
     }
 }

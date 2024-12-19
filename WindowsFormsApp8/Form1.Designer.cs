@@ -31,24 +31,25 @@
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.sidebar = new System.Windows.Forms.Panel();
-            this.p1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.mainPannel = new System.Windows.Forms.Panel();
             this.btnNotepad = new System.Windows.Forms.Button();
+            this.p1 = new System.Windows.Forms.Panel();
             this.btnNotification = new System.Windows.Forms.Button();
             this.btnAI = new System.Windows.Forms.Button();
             this.btnNotes = new System.Windows.Forms.Button();
             this.btnChat = new System.Windows.Forms.Button();
             this.btnTodo = new System.Windows.Forms.Button();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.mainPannel = new System.Windows.Forms.Panel();
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.sidebar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -76,6 +77,19 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "GitHub";
             this.label2.Click += new System.EventHandler(this.label2_Click);
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureBox3.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pictureBox3.Image = global::WindowsFormsApp8.Properties.Resources.ph1;
+            this.pictureBox3.Location = new System.Drawing.Point(1154, 0);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(41, 43);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox3.TabIndex = 3;
+            this.pictureBox3.TabStop = false;
+            this.pictureBox3.Click += new System.EventHandler(this.pictureBox3_Click);
             // 
             // panel3
             // 
@@ -106,39 +120,6 @@
             this.sidebar.TabIndex = 1;
             this.sidebar.Paint += new System.Windows.Forms.PaintEventHandler(this.sidebar_Paint);
             // 
-            // p1
-            // 
-            this.p1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.p1.Location = new System.Drawing.Point(12, 66);
-            this.p1.Name = "p1";
-            this.p1.Size = new System.Drawing.Size(10, 40);
-            this.p1.TabIndex = 0;
-            // 
-            // label1
-            // 
-            this.label1.BackColor = System.Drawing.Color.Black;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(79, 3);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(118, 39);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Dashboard";
-            // 
-            // timer1
-            // 
-            this.timer1.Interval = 10;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // mainPannel
-            // 
-            this.mainPannel.Cursor = System.Windows.Forms.Cursors.Default;
-            this.mainPannel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mainPannel.Location = new System.Drawing.Point(153, 43);
-            this.mainPannel.Name = "mainPannel";
-            this.mainPannel.Size = new System.Drawing.Size(1053, 739);
-            this.mainPannel.TabIndex = 2;
-            // 
             // btnNotepad
             // 
             this.btnNotepad.BackColor = System.Drawing.Color.Black;
@@ -156,6 +137,14 @@
             this.btnNotepad.Text = "                            Notepad\r\n";
             this.btnNotepad.UseVisualStyleBackColor = false;
             this.btnNotepad.Click += new System.EventHandler(this.btnNotepad_Click);
+            // 
+            // p1
+            // 
+            this.p1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.p1.Location = new System.Drawing.Point(12, 66);
+            this.p1.Name = "p1";
+            this.p1.Size = new System.Drawing.Size(10, 40);
+            this.p1.TabIndex = 0;
             // 
             // btnNotification
             // 
@@ -258,22 +247,40 @@
             this.pictureBox2.TabIndex = 2;
             this.pictureBox2.TabStop = false;
             // 
-            // pictureBox3
+            // label1
             // 
-            this.pictureBox3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox3.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pictureBox3.Image = global::WindowsFormsApp8.Properties.Resources.ph1;
-            this.pictureBox3.Location = new System.Drawing.Point(1154, 0);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(41, 43);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox3.TabIndex = 3;
-            this.pictureBox3.TabStop = false;
-            this.pictureBox3.Click += new System.EventHandler(this.pictureBox3_Click);
+            this.label1.BackColor = System.Drawing.Color.Black;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(79, 3);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(118, 39);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Dashboard";
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 10;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // mainPannel
+            // 
+            this.mainPannel.Cursor = System.Windows.Forms.Cursors.Default;
+            this.mainPannel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mainPannel.Location = new System.Drawing.Point(153, 43);
+            this.mainPannel.Name = "mainPannel";
+            this.mainPannel.Size = new System.Drawing.Size(1053, 739);
+            this.mainPannel.TabIndex = 2;
+            // 
+            // notifyIcon1
+            // 
+            this.notifyIcon1.Text = "notifyIcon1";
+            this.notifyIcon1.Visible = true;
+            this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1206, 782);
@@ -285,10 +292,11 @@
             this.Name = "Form1";
             this.Text = "Programmer Environment";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.SizeChanged += new System.EventHandler(this.Form1_SizeChanged);
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.sidebar.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -311,6 +319,7 @@
         private System.Windows.Forms.Panel p1;
         private System.Windows.Forms.Button btnNotepad;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.NotifyIcon notifyIcon1;
     }
 }
 
