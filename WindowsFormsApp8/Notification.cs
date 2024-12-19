@@ -45,7 +45,8 @@ namespace WindowsFormsApp8
                         MessageBox.Show($"Error deleting task: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-                LoadNotifications();
+                this.Controls.Clear();
+                InitializeComponent();
             }
         }
         private void CreateNotificationUI(string notificationType,string descripton, int notificationId)
