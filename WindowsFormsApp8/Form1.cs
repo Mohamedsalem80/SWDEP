@@ -11,15 +11,17 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApp8
 {
+    
     public partial class Form1 : Form
     {
-        private string connectionString = "Server=127.0.0.1;Port=3306;Database=notifications;Uid=root;Pwd=;";
+        TodoForm todo;
+        private string connectionString = "Server=127.0.0.1;Port=3306;Database=application_db;Uid=root;Pwd=;";
         public Form1()
         {
             InitializeComponent();
-            loadform(new TodoForm());
+           //loadform(new TodoForm());
             p1.Visible = true;
-            notifyIcon1.Icon = SystemIcons.Error;
+            notifyIcon1.Icon = SystemIcons.Application;
         }
         bool sidebarExpand = true;
 
@@ -28,7 +30,7 @@ namespace WindowsFormsApp8
             if (this.mainPannel.Controls.Count > 0)
                 this.mainPannel.Controls.RemoveAt(0);
             Form f = Form as Form;
-            f.TopLevel = false;
+           f.TopLevel = false;
             f.Dock = DockStyle.Fill;
             this.mainPannel.Controls.Add(f);
             this.mainPannel.Tag = f;
@@ -66,10 +68,25 @@ namespace WindowsFormsApp8
 
         private void btnTodo_Click(object sender, EventArgs e)
         {
-            loadform(new TodoForm());
-            position(btnTodo);
-        }
+            if (todo == null)
+            {
+                todo = new TodoForm();
+                todo.FormClosed += todo_FormClosed;
+               // todo.MdiParent = this;
+                todo.Dock = DockStyle.Fill;
+                todo.Show();
+            }
+            else
+            {
+                todo.Activate();
+            }
 
+           
+        }
+        private void todo_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            todo = null;
+        }
         private void btnChat_Click(object sender, EventArgs e)
         {
             loadform(new ChatForm());
@@ -84,7 +101,7 @@ namespace WindowsFormsApp8
 
         private void btnAI_Click(object sender, EventArgs e)
         {
-            loadform(new AIForm());
+            loadform(new ChatBot());
             position(btnAI);
         }
 
@@ -166,6 +183,73 @@ namespace WindowsFormsApp8
                             cmd.ExecuteNonQuery();
                             goto x;
                             //reader = cmd.ExecuteReader();
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error loading tasks from database: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void mainPannel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void timer3_Tick(object sender, EventArgs e)
+        {
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = "SELECT * FROM subtasks WHERE IsCompleted = 0 and notification_push = 0 ";
+                    string z;
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                x:
+                    query = "SELECT * FROM subtasks WHERE IsCompleted = 0 and notification_push = 0 ";
+                    cmd.CommandText = query;
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int SubtaskID = reader.GetInt32("SubtaskID");
+                            DateTime SubtaskDueDate = reader.GetDateTime("SubtaskDueDate");
+                            string SubtaskName = reader.GetString("SubtaskName");
+                            z = "UPDATE subtasks SET notification_push = 1 WHERE SubtaskID=" + Convert.ToString(SubtaskID) + ";";
+                            if (SubtaskDueDate != DateTime.Now.Date)
+                                continue;
+                            reader.Close();
+                            cmd.CommandText = z;
+                            cmd.ExecuteNonQuery();
+                            z = "INSERT INTO notifications_data (notification_Type, notification_Description, OS_Push) VALUES ('duedate of subtask is today','" + SubtaskName + " duedate is today',0);";
+                            cmd.CommandText = z;
+                            cmd.ExecuteNonQuery();
+                            goto x;
+                        }
+                    }
+                y:
+                    query = "SELECT * FROM maintasks WHERE progress < 100 and notification_push = 0 ";
+                    cmd.CommandText = query;
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int taskID = reader.GetInt32("taskID");
+                            DateTime Duedate = reader.GetDateTime("DueDate");
+                            string taskName = reader.GetString("taskName");
+                            z = "UPDATE maintasks SET notification_push = 1 WHERE taskID=" + Convert.ToString(taskID) + ";";
+                            if (Duedate != DateTime.Now.Date)
+                                continue;
+                            reader.Close();
+                            cmd.CommandText = z;
+                            cmd.ExecuteNonQuery();
+                            z = "INSERT INTO notifications_data (notification_Type, notification_Description, OS_Push) VALUES (" + "'duedate of maintask is today'" + ",'" + taskName + " duedate is today',0);";
+                            cmd.CommandText = z;
+                            cmd.ExecuteNonQuery();
+                            goto y;
                         }
                     }
                 }

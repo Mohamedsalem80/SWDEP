@@ -14,7 +14,7 @@ namespace WindowsFormsApp8
     public partial class Notification : Form
     {
         
-        private string connectionString = "Server=127.0.0.1;Port=3306;Database=notifications;Uid=root;Pwd=;";
+        private string connectionString = "Server=127.0.0.1;Port=3306;Database=application_db;Uid=root;Pwd=;";
         public Notification()
         {
             InitializeComponent();

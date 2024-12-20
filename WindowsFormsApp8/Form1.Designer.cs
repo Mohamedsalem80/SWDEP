@@ -47,6 +47,7 @@
             this.mainPannel = new System.Windows.Forms.Panel();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.timer3 = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.sidebar.SuspendLayout();
@@ -272,10 +273,11 @@
             this.mainPannel.Name = "mainPannel";
             this.mainPannel.Size = new System.Drawing.Size(1053, 739);
             this.mainPannel.TabIndex = 2;
+            this.mainPannel.Paint += new System.Windows.Forms.PaintEventHandler(this.mainPannel_Paint);
             // 
             // notifyIcon1
             // 
-            this.notifyIcon1.Text = "notifyIcon1";
+            this.notifyIcon1.Text = "programmer environment";
             this.notifyIcon1.Visible = true;
             this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
             // 
@@ -284,6 +286,12 @@
             this.timer2.Enabled = true;
             this.timer2.Interval = 4000;
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            // 
+            // timer3
+            // 
+            this.timer3.Enabled = true;
+            this.timer3.Interval = 10000;
+            this.timer3.Tick += new System.EventHandler(this.timer3_Tick);
             // 
             // Form1
             // 
@@ -296,6 +304,7 @@
             this.Controls.Add(this.panel1);
             this.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.IsMdiContainer = true;
             this.Name = "Form1";
             this.Text = "Programmer Environment";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -328,6 +337,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
         private System.Windows.Forms.Timer timer2;
+        private System.Windows.Forms.Timer timer3;
     }
 }
 
